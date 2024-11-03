@@ -33,6 +33,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Fence;
 import org.bukkit.block.data.type.GlassPane;
+import org.bukkit.block.data.type.Leaves;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Vector;
@@ -654,6 +655,10 @@ public class ParkourGenerator {
             }
 
             block.setBlockData(data, data instanceof Fence || data instanceof GlassPane);
+            if (data instanceof Leaves leaves) {
+                leaves.setPersistent(true);
+            }
+
             movedBlocks.add(block);
         }
 
