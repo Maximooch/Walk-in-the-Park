@@ -10,7 +10,9 @@ import dev.efnilite.ip.mode.Modes;
 import dev.efnilite.ip.player.ParkourPlayer;
 import dev.efnilite.ip.player.ParkourSpectator;
 import dev.efnilite.ip.player.ParkourUser;
+import dev.efnilite.vilib.inventory.item.Item;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -128,6 +130,16 @@ public class PAPIHook extends PlaceholderExpansion {
                 }
                 case "difficulty_string" -> {
                     return parseDifficulty(pp.schematicDifficulty);
+                }
+                case "mode" -> {
+                    Mode mode = generator.getMode();
+                    Item item = mode.getItem(pp.locale);
+
+                    if (item == null) {
+                        return mode.getName();
+                    }
+
+                    return ChatColor.stripColor(item.getName());
                 }
                 default -> {
                     if (params.contains("score_until_")) {
