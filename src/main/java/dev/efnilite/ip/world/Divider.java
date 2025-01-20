@@ -51,6 +51,9 @@ public class Divider {
      * @param session The session.
      */
     public static void remove(Session session) {
+	if (!sections.containsKey(session)) {
+    		return;
+	}
         IP.log("Removed session at %s".formatted(Locations.toString(toLocation(session), true)));
 
         sections.remove(session);
@@ -61,6 +64,9 @@ public class Divider {
      * @return The location at the center of section n.
      */
     private static Location toLocation(Session session) {
+	if (!sections.containsKey(session)) {
+    		return null;
+	}
         int[] xz = spiralAt(sections.get(session));
 
         return new Location(World.getWorld(),
