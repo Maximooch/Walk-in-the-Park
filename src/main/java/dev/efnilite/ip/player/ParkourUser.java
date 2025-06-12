@@ -21,6 +21,8 @@ import dev.efnilite.ip.storage.Storage;
 import dev.efnilite.ip.world.Divider;
 import dev.efnilite.vilib.fastboard.FastBoard;
 import dev.efnilite.vilib.util.Strings;
+import dev.efnilite.ip.util.ScoreboardUtil;
+import org.bukkit.scoreboard.Team;
 import io.papermc.lib.PaperLib;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
@@ -231,6 +233,15 @@ public abstract class ParkourUser {
 
         if (Boolean.parseBoolean(Option.OPTIONS_DEFAULTS.get(ParkourOption.SCOREBOARD))) {
             this.board = new FastBoard(player);
+
+            var scoreboard = player.getScoreboard();
+            Team team = scoreboard.getTeam("parkour");
+            if (team == null) {
+                team = scoreboard.registerNewTeam("parkour");
+            }
+            ScoreboardUtil.setCollisionRule(team, Team.OptionStatus.NEVER);
+            team.addEntry(player.getName());
+            player.setScoreboard(scoreboard);
         }
     }
 
