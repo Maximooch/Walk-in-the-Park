@@ -20,6 +20,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import de.tr7zw.changeme.nbtapi.NBTItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +72,10 @@ public class SingleLeaderboardMenu {
 
             // Player head gathering
             ItemStack stack = item.build();
+            NBTItem nbt = new NBTItem(stack);
+            nbt.setString("ip-player", uuid.toString());
+            stack = nbt.getItem();
+            item.stack(stack);
 
             // if there are more than 36 players, don't show the heads to avoid server crashing
             // and bedrock has no player skull support
