@@ -34,7 +34,7 @@ play:
     name: "<white>Spectator"
 
     join: "<#4CB3FF>You are now a spectator. You can use \"/parkour\" to leave/change your gamemode."
-    action_bar: "<#4CB3FF>You are a spectator <gray>• <#4CB3FF>Use \"/parkour\" to leave."
+    action_bar: "<#4CB3FF>Right-click a player to spectate <gray>• <#4CB3FF>Use \"/parkour\" to leave."
 
     other_join: "<dark_green><bold>+ <reset><gray>%s started spectating you"
     other_leave: "<red><bold>- <reset><gray>%s stopped spectating you"

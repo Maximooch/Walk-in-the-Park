@@ -2,7 +2,8 @@ package dev.efnilite.ip.world;
 
 import dev.efnilite.ip.IP;
 import dev.efnilite.ip.config.Config;
-import dev.efnilite.vilib.util.VoidGenerator;
+import dev.efnilite.ip.config.Option;
+import dev.efnilite.ip.world.VoidChunkGenerator1_8;
 import org.bukkit.*;
 
 import java.io.File;
@@ -47,8 +48,14 @@ public class World {
             WorldCreator creator = new WorldCreator(name)
                     .generateStructures(false)
                     .type(WorldType.NORMAL)
-                    .generator(VoidGenerator.getGenerator()) // to fix No keys in MapLayer etc.
                     .environment(org.bukkit.World.Environment.NORMAL);
+
+            var vg = Bukkit.getPluginManager().getPlugin("VoidGen");
+            if (vg != null) {
+                creator.generator(vg.getDefaultWorldGenerator(name, null));
+            } else {
+                creator.generator(new VoidChunkGenerator1_8());
+            }
 
             world = Bukkit.createWorld(creator);
         } catch (Exception ex) {
@@ -69,7 +76,7 @@ public class World {
         world.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
 
         world.getWorldBorder().setCenter(0, 0);
-        world.getWorldBorder().setSize(10_000_000);
+        world.getWorldBorder().setSize(Option.BORDER_SIZE);
         world.setDifficulty(Difficulty.PEACEFUL);
         world.setClearWeatherDuration(1000000);
         world.setAutoSave(false);
