@@ -5,6 +5,7 @@ import dev.efnilite.ip.menu.ParkourOption;
 import dev.efnilite.ip.player.ParkourUser;
 import dev.efnilite.vilib.inventory.item.Item;
 import dev.efnilite.vilib.util.Task;
+import dev.efnilite.ip.util.MaterialAdapter;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -236,7 +237,7 @@ public class Locales {
             idx++;
         }
 
-        Item item = new Item(Material.getMaterial(material.toUpperCase()), name);
+        Item item = new Item(MaterialAdapter.adapt(material), name);
 
         if (!lore.isEmpty()) {
             item.lore(lore.split("\\|\\|"));
