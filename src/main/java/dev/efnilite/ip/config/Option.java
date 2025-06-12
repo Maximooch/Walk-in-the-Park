@@ -6,6 +6,9 @@ import dev.efnilite.ip.menu.ParkourOption;
 import dev.efnilite.ip.style.RandomStyle;
 import dev.efnilite.ip.style.Style;
 import dev.efnilite.vilib.particle.ParticleData;
+import dev.efnilite.ip.util.MaterialAdapter;
+import dev.efnilite.ip.util.ParticleAdapter;
+import dev.efnilite.ip.util.SoundAdapter;
 import org.bukkit.*;
 import org.bukkit.block.BlockFace;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -136,22 +139,11 @@ public class Option {
     public static ParticleData<?> PARTICLE_DATA;
 
     private static void initEnums() {
-        String value = Config.CONFIG.getString("particles.sound-type").toUpperCase();
-
-        try {
-            SOUND_TYPE = Sound.valueOf(value);
-        } catch (IllegalArgumentException ex) {
-            SOUND_TYPE = Sound.valueOf("BLOCK_NOTE_PLING");
-            IP.logging().error("Invalid sound: %s".formatted(value));
-        }
+        String value = Config.CONFIG.getString("particles.sound-type");
+        SOUND_TYPE = SoundAdapter.adapt(value);
 
         value = Config.CONFIG.getString("particles.particle-type");
-        try {
-            PARTICLE_TYPE = Particle.valueOf(value);
-        } catch (IllegalArgumentException ex) {
-            PARTICLE_TYPE = Particle.valueOf("SPELL_INSTANT");
-            IP.logging().error("Invalid particle type: %s".formatted(value));
-        }
+        PARTICLE_TYPE = ParticleAdapter.adapt(value);
 
         SOUND_PITCH = Config.CONFIG.getInt("particles.sound-pitch");
         SOUND_VOLUME = Config.CONFIG.getInt("particles.sound-volume");
@@ -247,13 +239,11 @@ public class Option {
             styles.add(fn.apply(style,
                     config.getStringList("%s.%s".formatted(path, style)).stream()
                             .map(name -> {
-                                var material = Material.getMaterial(name.toUpperCase());
-
+                                Material material = MaterialAdapter.adapt(name);
                                 if (material == null) {
                                     IP.logging().error("Invalid material %s in style %s".formatted(name, style));
                                     return Material.STONE;
                                 }
-
                                 return material;
                             })
                             .toList()));

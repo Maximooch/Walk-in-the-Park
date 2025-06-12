@@ -6,6 +6,7 @@ import dev.efnilite.ip.session.Session;
 import dev.efnilite.vilib.schematic.Schematic;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import dev.efnilite.ip.util.MaterialAdapter;
 import org.bukkit.block.Block;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -51,8 +52,8 @@ public final class Island {
 
         blocks = schematic.paste(location.subtract(0, schematic.getDimensions().getY(), 0));
 
-        Material playerMaterial = Material.getMaterial(Config.GENERATION.getString("advanced.island.spawn.player-block").toUpperCase());
-        Material parkourMaterial = Material.getMaterial(Config.GENERATION.getString("advanced.island.parkour.begin-block").toUpperCase());
+        Material playerMaterial = MaterialAdapter.adapt(Config.GENERATION.getString("advanced.island.spawn.player-block"));
+        Material parkourMaterial = MaterialAdapter.adapt(Config.GENERATION.getString("advanced.island.parkour.begin-block"));
 
         try {
             Block player = blocks.stream().filter(block -> block.getType() == playerMaterial).findAny().orElseThrow();
