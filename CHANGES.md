@@ -7,3 +7,4 @@
 - Fixed errors on joining spectator
 - Fixed errors on leaving
 - Fixed heading not working on parkour
+- Initial 1.8.8 backport setup

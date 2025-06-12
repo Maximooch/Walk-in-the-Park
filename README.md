@@ -15,3 +15,7 @@ Welcome to the Infinite Parkour repo.
 
 To use this project, you can use **[Jitpack](https://jitpack.io/#efnilite/walk-in-the-park)** to get the source and include it in your preferred build method.
 
+### Building
+
+The `1.8-backport` branch targets **Java 8** and Spigot **1.8.8**. Ensure your JDK is 8u202 or higher when compiling.
+
